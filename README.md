@@ -73,3 +73,15 @@ bun run preview
 ```
 
 Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+
+# FoxToch Dev
+## Requirements
+
+Ensure you have the following software versions
+installed on your system:
+
+-   **PHP**: 8.3 or higher
+-   **Composer**: 2.7.7 or higher
+-   **Node.js**: 18.x or higher (for npm)
+-   **taraverl**: 11x
+-   **Tailwind**: 3.x

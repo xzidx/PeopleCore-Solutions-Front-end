@@ -73,3 +73,11 @@ bun run preview
 ```
 
 Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+
+## Requirements 
+Thing that you need to installed on your system software versions
+
+-   **PHP**: 8.3 or higher
+-   **Node.js** 18.0 or higher (22.22 for our project and also for the npm)
+-   **Taidwind** 3.x
+-   

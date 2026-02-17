@@ -1,7 +1,7 @@
 <template>
   <header class="  w-full text-white flex  justify-around items-center ">
       <div class="  w-[270px] h-[80px] ">
-          <img src="/home/chan-samnang/Documents/Project/PeopleCore-Solutions/PeopleCore-Solutions-Front-end/public/images/logo.png" alt="">
+          <img src="/../public/images/logo.png" alt="">
       </div>
       <div class="w-[800px] h-[80px]  flex justify-center items-center gap-5">
           <ul class="flex justify-center items-center gap-10">

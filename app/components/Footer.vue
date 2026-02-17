@@ -22,7 +22,7 @@
         
         <div class="max-w-sm">
            <div class="  w-[200px] h-[80px] ">
-                <img src="/home/chan-samnang/Documents/Project/PeopleCore-Solutions/PeopleCore-Solutions-Front-end/public/images/logo.png" alt="">
+                <img src="/../public/images/logo.png" alt="">
             </div>
           <p class="text-sm leading-relaxed text-gray-600 mb-8">
             Discover thousands of job opportunities and connect with top employers. Our platform helps you apply faster and get hired smarter.

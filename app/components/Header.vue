@@ -1,5 +1,5 @@
 <template>
-  <header class="  w-full text-white flex  justify-around items-center ">
+  <header class="  w-full text-white flex  justify-around items-center fixed top-0 left-0 w-full bg-white z-50 ">
       <div class="  w-[270px] h-[80px] ">
           <img src="/../public/images/logo.png" alt="">
       </div>

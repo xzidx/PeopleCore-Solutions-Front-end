@@ -23,6 +23,7 @@ const handleLogin = () => {
           placeholder="Full Name"
           required
         />
+        
 
         <input class="w-full p-3 border rounded-lg"
           v-model="email"

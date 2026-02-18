@@ -1,5 +1,5 @@
 <template>
-    <div class="w-full min-h-screen flex justify-center items-center bg-gradient-to-br to-indigo-100">  
+    <div class="w-full min-h-screen flex justify-center items-center bg-gradient-to-br to-indigo-100 mt-20">  
     <div class="w-[92%] max-w-[1400px] h-[600px] flex rounded-[20px] overflow-hidden shadow-lg border border-gray-200 bg-white">
         <div class="w-1/2 h-full relative">
             <img src="/images/peopleCore-soution.png" alt="PeopleCore Solution" class="w-full h-full object-cover">

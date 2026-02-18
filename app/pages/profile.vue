@@ -8,7 +8,7 @@
 
         <div class="flex items-center gap-2 text-slate-400 mb-10 hover:text-indigo-600 cursor-pointer transition-all group">
           <i class="fa-solid fa-chevron-left text-[10px] group-hover:-translate-x-1 transition-transform"></i>
-          <span class="text-xl font-bold uppercase tracking-widest">My account</span>
+          <span class="text-md font-bold uppercase tracking-widest">My account</span>
         </div>
 
         <nav class="space-y-10">
@@ -24,6 +24,7 @@
                 :class="activeTab === 'profile'
                   ? activeClass
                   : inactiveClass"
+                  class="text-base"
               >
                 <i class="fa-regular fa-user"></i>
                 My Profile
@@ -35,6 +36,7 @@
                 :class="activeTab === 'security'
                   ? activeClass
                   : inactiveClass"
+                  class="text-base"
               >
                 <i class="fa-solid fa-shield-halved"></i>
                 Security
@@ -46,6 +48,7 @@
                 :class="activeTab === 'recruitment'
                   ? activeClass
                   : inactiveClass"
+                  class="text-base"
               >
                 <i class="fa-solid fa-briefcase"></i>
                 Recruitment Admin
@@ -56,6 +59,7 @@
                 :class="activeTab === 'notifications'
                   ? activeClass
                   : inactiveClass"
+                  class="text-base"
               >
                 <i class="fa-regular fa-bell"></i>
                 Notifications
@@ -66,9 +70,11 @@
                 :class="activeTab === 'candidate'
                   ? activeClass
                   : inactiveClass"
+                  class="text-base"
               >
                 <i class="fa-solid fa-user-group"></i>
                 Candidate Notifications
+                
               </li>
 
 
@@ -86,7 +92,7 @@
           <div v-if="activeTab === 'profile'" class="space-y-12">
 
             <header>
-              <h1 class="text-3xl font-black text-slate-900 tracking-tight">
+              <h1 class="text-2xl font-black text-slate-900 tracking-tight">
                 My Profile
               </h1>
               <p class="text-slate-500 mt-1 font-medium">
@@ -129,12 +135,12 @@
 
               <div class="space-y-2">
                 <label class="label">First Name</label>
-                <input type="text" value="Julian" class="input-style" />
+                <input type="text" value="Mr" class="input-style" />
               </div>
 
               <div class="space-y-2">
                 <label class="label">Last Name</label>
-                <input type="text" value="Hernandez" class="input-style" />
+                <input type="text" value="BigBoy" class="input-style" />
               </div>
 
               <div class="md:col-span-2 space-y-2">
@@ -158,7 +164,7 @@
           <div v-if="activeTab === 'security'" class="space-y-10">
 
             <header>
-              <h1 class="text-3xl font-black text-slate-900 tracking-tight">
+              <h1 class="text-2xl font-black text-slate-900 tracking-tight">
                 Security
               </h1>
               <p class="text-slate-500 mt-1 font-medium">
@@ -194,7 +200,7 @@
           <div v-if="activeTab === 'recruitment'" class="space-y-10">
 
               <header>
-                <h1 class="text-3xl font-black text-slate-900 tracking-tight">
+                <h1 class="text-2xl font-black text-slate-900 tracking-tight">
                   Recruitment request
                 </h1>
                 <p class="text-slate-500 mt-1 font-medium">
@@ -255,7 +261,7 @@
             <div v-if="activeTab === 'notifications'" class="space-y-10">
 
               <header>
-                <h1 class="text-3xl font-black text-slate-900 tracking-tight">
+                <h1 class="text-2xl font-black text-slate-900 tracking-tight">
                   Notifications
                 </h1>
                 <p class="text-slate-500 mt-1 font-medium">
@@ -286,7 +292,7 @@
             <div v-if="activeTab === 'candidate'" class="space-y-10">
 
               <header>
-                <h1 class="text-3xl font-black text-slate-900 tracking-tight">
+                <h1 class="text-2xl font-black text-slate-900 tracking-tight">
                   Candidate Notifications
                 </h1>
                 <p class="text-slate-500 mt-1 font-medium">

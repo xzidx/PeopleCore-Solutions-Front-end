@@ -84,7 +84,9 @@
           </div>
 
           <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-            <JobCard v-for="(job, index) in paginatedJobs" :key="index" v-bind="job" />
+            <NuxtLink v-for="(job, index) in paginatedJobs" :key="index" :to="`/job-detail?id=${job.id}`">
+               <JobCard v-bind="job" class="cursor-pointer transition-transform hover:scale-[1.01]" />
+            </NuxtLink>
           </div>
         </main>
       </div>
@@ -191,27 +193,26 @@ const dropdownConfigs = [
   }
 ]
 
-// --- Job Data ---
+// --- Job Data (ADDED IDs) ---
 const jobs = ref([
-  { date: '12 Mar, 2026', company: 'Spotify', title: 'Product Designer', tags: ['Full time', 'Senior level'], price: 320, location: 'Stockholm, SE', bgColor: 'bg-[#E7DBFF]' },
-  { date: '05 Apr, 2026', company: 'Slack', title: 'Frontend Engineer', tags: ['Distant', 'Middle level'], price: 280, location: 'Remote', bgColor: 'bg-[#D1F7EA]' },
-  { date: '22 Jan, 2026', company: 'Airbnb', title: 'UX Researcher', tags: ['Project work', 'Senior level'], price: 400, location: 'San Francisco, CA', bgColor: 'bg-[#FFE2C5]' },
-  { date: '18 Feb, 2026', company: 'Tesla', title: 'Fullstack Developer', tags: ['Full time', 'Lead level'], price: 450, location: 'Austin, TX', bgColor: 'bg-[#D1F7EA]' },
-  { date: '01 May, 2026', company: 'Netflix', title: 'Content Strategist', tags: ['Part time', 'Junior level'], price: 190, location: 'Los Angeles, CA', bgColor: 'bg-[#E7DBFF]' },
-  { date: '14 Mar, 2026', company: 'Adobe', title: 'Creative Director', tags: ['Full Day', 'Senior level'], price: 550, location: 'San Jose, CA', bgColor: 'bg-[#FFE2C5]' },
-  { date: '30 Apr, 2026', company: 'Figma', title: 'Design Systems Lead', tags: ['Distant', 'Lead level'], price: 420, location: 'Remote', bgColor: 'bg-[#D1F7EA]' },
-  { date: '10 Feb, 2026', company: 'Microsoft', title: 'Azure Specialist', tags: ['Shift work', 'Middle level'], price: 310, location: 'Seattle, WA', bgColor: 'bg-[#FFE2C5]' },
-  { date: '25 Mar, 2026', company: 'Shopify', title: 'E-commerce Expert', tags: ['Contract', 'Senior level'], price: 290, location: 'Ottawa, ON', bgColor: 'bg-[#E7DBFF]' },
-  { date: '08 May, 2026', company: 'Apple', title: 'iOS Developer', tags: ['Full time', 'Senior level'], price: 480, location: 'Cupertino, CA', bgColor: 'bg-[#D1F7EA]' },
-  { date: '19 Jan, 2026', company: 'Notion', title: 'Customer Success', tags: ['Flexible', 'Junior level'], price: 120, location: 'New York, NY', bgColor: 'bg-[#FFE2C5]' },
-  { date: '02 Mar, 2026', company: 'Zoom', title: 'Security Engineer', tags: ['Distant', 'Middle level'], price: 340, location: 'Remote', bgColor: 'bg-[#E7DBFF]' },
-  { date: '15 Feb, 2026', company: 'Discord', title: 'Community Manager', tags: ['Part time', 'Middle level'], price: 210, location: 'Remote', bgColor: 'bg-[#D1F7EA]' },
-  { date: '28 Feb, 2026', company: 'Reddit', title: 'Backend Engineer', tags: ['Full time', 'Senior level'], price: 390, location: 'San Francisco, CA', bgColor: 'bg-[#FFE2C5]' },
-  { date: '10 Apr, 2026', company: 'Stripe', title: 'Payment Architect', tags: ['Full Day', 'Lead level'], price: 510, location: 'Dublin, IE', bgColor: 'bg-[#E7DBFF]' },
-  { date: '05 May, 2026', company: 'HubSpot', title: 'Marketing Lead', tags: ['Flexible', 'Senior level'], price: 275, location: 'Boston, MA', bgColor: 'bg-[#D1F7EA]' },
-  { date: '12 Mar, 2026', company: 'Spotify', title: 'Product Designer', tags: ['Full time', 'Senior level'], price: 320, location: 'Stockholm, SE', bgColor: 'bg-[#E7DBFF]' },
-  { date: '05 Apr, 2026', company: 'Slack', title: 'Frontend Engineer', tags: ['Distant', 'Middle level'], price: 280, location: 'Remote', bgColor: 'bg-[#D1F7EA]' },
-  
+  { id: 1, date: '12 Mar, 2026', company: 'Spotify', title: 'Product Designer', tags: ['Full time', 'Senior level'], price: 320, location: 'Stockholm, SE', bgColor: 'bg-[#E7DBFF]' },
+  { id: 2, date: '05 Apr, 2026', company: 'Slack', title: 'Frontend Engineer', tags: ['Distant', 'Middle level'], price: 280, location: 'Remote', bgColor: 'bg-[#D1F7EA]' },
+  { id: 3, date: '22 Jan, 2026', company: 'Airbnb', title: 'UX Researcher', tags: ['Project work', 'Senior level'], price: 400, location: 'San Francisco, CA', bgColor: 'bg-[#FFE2C5]' },
+  { id: 4, date: '18 Feb, 2026', company: 'Tesla', title: 'Fullstack Developer', tags: ['Full time', 'Lead level'], price: 450, location: 'Austin, TX', bgColor: 'bg-[#D1F7EA]' },
+  { id: 5, date: '01 May, 2026', company: 'Netflix', title: 'Content Strategist', tags: ['Part time', 'Junior level'], price: 190, location: 'Los Angeles, CA', bgColor: 'bg-[#E7DBFF]' },
+  { id: 6, date: '14 Mar, 2026', company: 'Adobe', title: 'Creative Director', tags: ['Full Day', 'Senior level'], price: 550, location: 'San Jose, CA', bgColor: 'bg-[#FFE2C5]' },
+  { id: 7, date: '30 Apr, 2026', company: 'Figma', title: 'Design Systems Lead', tags: ['Distant', 'Lead level'], price: 420, location: 'Remote', bgColor: 'bg-[#D1F7EA]' },
+  { id: 8, date: '10 Feb, 2026', company: 'Microsoft', title: 'Azure Specialist', tags: ['Shift work', 'Middle level'], price: 310, location: 'Seattle, WA', bgColor: 'bg-[#FFE2C5]' },
+  { id: 9, date: '25 Mar, 2026', company: 'Shopify', title: 'E-commerce Expert', tags: ['Contract', 'Senior level'], price: 290, location: 'Ottawa, ON', bgColor: 'bg-[#E7DBFF]' },
+  { id: 10, date: '08 May, 2026', company: 'Apple', title: 'iOS Developer', tags: ['Full time', 'Senior level'], price: 480, location: 'Cupertino, CA', bgColor: 'bg-[#D1F7EA]' },
+  { id: 11, date: '19 Jan, 2026', company: 'Notion', title: 'Customer Success', tags: ['Flexible', 'Junior level'], price: 120, location: 'New York, NY', bgColor: 'bg-[#FFE2C5]' },
+  { id: 12, date: '02 Mar, 2026', company: 'Zoom', title: 'Security Engineer', tags: ['Distant', 'Middle level'], price: 340, location: 'Remote', bgColor: 'bg-[#E7DBFF]' },
+  { id: 13, date: '15 Feb, 2026', company: 'Discord', title: 'Community Manager', tags: ['Part time', 'Middle level'], price: 210, location: 'Remote', bgColor: 'bg-[#D1F7EA]' },
+  { id: 14, date: '28 Feb, 2026', company: 'Reddit', title: 'Backend Engineer', tags: ['Full time', 'Senior level'], price: 390, location: 'San Francisco, CA', bgColor: 'bg-[#FFE2C5]' },
+  { id: 15, date: '10 Apr, 2026', company: 'Stripe', title: 'Payment Architect', tags: ['Full Day', 'Lead level'], price: 510, location: 'Dublin, IE', bgColor: 'bg-[#E7DBFF]' },
+  { id: 16, date: '05 May, 2026', company: 'HubSpot', title: 'Marketing Lead', tags: ['Flexible', 'Senior level'], price: 275, location: 'Boston, MA', bgColor: 'bg-[#D1F7EA]' },
+  { id: 17, date: '12 Mar, 2026', company: 'Spotify', title: 'Product Designer', tags: ['Full time', 'Senior level'], price: 320, location: 'Stockholm, SE', bgColor: 'bg-[#E7DBFF]' },
+  { id: 18, date: '05 Apr, 2026', company: 'Slack', title: 'Frontend Engineer', tags: ['Distant', 'Middle level'], price: 280, location: 'Remote', bgColor: 'bg-[#D1F7EA]' },
 ])
 
 // --- Search & Pagination Logic ---

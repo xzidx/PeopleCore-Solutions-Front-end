@@ -32,7 +32,7 @@
             </li>
             <li class="flex justify-center items-center text-xl text-black font-semibold">
              <NuxtLink 
-                to="/jobs" 
+                to="/about" 
                 class="relative group transition duration-300">
                 <span class="group-hover:text-blue-500">About</span>
                 <span class="absolute left-0 -bottom-1 h-[2px] w-0 bg-blue-500 transition-all duration-300 group-hover:w-full"></span>

@@ -6,7 +6,7 @@
 
     <section class="max-w-6xl mx-auto px-6 py-40 grid md:grid-cols-2 gap-10 items-center">
       <div>
-        <span class="bg-orange-500 text-sm px-3 py-1 rounded-full">30+ New Jobs</span>
+        <span class="bg-blue-600 text-white text-sm px-3 py-1 rounded-full">30+ New Jobs</span>
         <h1 class="text-4xl font-bold mt-4 mb-4">
           Find Your Dream Job <br />
           And Career Path
@@ -120,7 +120,7 @@
           <span class="text-gray-500 "><img src="https://i.pinimg.com/1200x/b1/4c/c1/b14cc161cce4383a47cfaebca0af04cb.jpg" alt="" class="rounded-md"></span>
           </div>
           <div>
-            <span class="bg-orange-500 text-sm px-3 py-2 rounded-full">Who We Are</span>
+            <span class="bg-blue-600 text-white text-sm px-3 py-1 rounded-full">Who We Are</span>
 
             <h2 class="text-4xl font-bold mt-4 mb-4">
               Let’s Build the Future Together

@@ -85,9 +85,9 @@
             v-model="itemsPerPage" 
             class="text-sm font-medium text-slate-700 bg-transparent outline-none cursor-pointer"
           >
-            <option :value="4">4 / page</option>
-            <option :value="10">10 / page</option>
-            <option :value="20">20 / page</option>
+            <option :value="8">8 / page</option>
+            <option :value="12">12 / page</option>
+            <option :value="24">24 / page</option>
           </select>
         </div>
       </div>
@@ -101,17 +101,27 @@ import { ref, computed, watch } from 'vue'
 
 const searchQuery = ref('')
 const currentPage = ref(1)
-const itemsPerPage = ref(10)
+
+// CHANGED FROM 10 TO 8
+const itemsPerPage = ref(8)
 
 const allCompanies = [
-  { id: 1, name: 'Marriott Group', location: 'Los Angeles, CA', logo: 'https://upload.wikimedia.org/wikipedia/commons/4/44/Marriott_Logo.svg', description: 'Global hospitality leader.', openJobs: 12, tags: ['Hospitality'] },
-  { id: 2, name: 'PeopleCore', location: 'Phnom Penh, KH', logo: 'https://img.logoipsum.com/296.svg', description: 'Connecting talent.', openJobs: 5, tags: ['Recruitment'] },
-  { id: 3, name: 'DesignFlow', location: 'San Francisco, CA', logo: 'https://img.logoipsum.com/285.svg', description: 'Creative agency.', openJobs: 3, tags: ['Design'] },
-  { id: 4, name: 'TechStack', location: 'Austin, TX', logo: 'https://img.logoipsum.com/225.svg', description: 'Cloud infrastructure.', openJobs: 24, tags: ['SaaS'] },
-  { id: 4, name: 'TechStack', location: 'Austin, TX', logo: 'https://img.logoipsum.com/225.svg', description: 'Cloud infrastructure.', openJobs: 24, tags: ['SaaS'] },
-  { id: 1, name: 'Marriott Group', location: 'Los Angeles, CA', logo: 'https://upload.wikimedia.org/wikipedia/commons/4/44/Marriott_Logo.svg', description: 'Global hospitality leader.', openJobs: 12, tags: ['Hospitality'] },
-  { id: 2, name: 'PeopleCore', location: 'Phnom Penh, KH', logo: 'https://img.logoipsum.com/296.svg', description: 'Connecting talent.', openJobs: 5, tags: ['Recruitment'] },
-  { id: 3, name: 'DesignFlow', location: 'San Francisco, CA', logo: 'https://img.logoipsum.com/285.svg', description: 'Creative agency.', openJobs: 3, tags: ['Design'] },
+  { id: 1, name: 'Marriott Group', location: 'Los Angeles, CA', logo: 'https://upload.wikimedia.org/wikipedia/commons/4/44/Marriott_Logo.svg', description: 'Global hospitality leader providing world-class travel experiences.', openJobs: 12, tags: ['Hospitality', 'Travel'] },
+  { id: 2, name: 'PeopleCore', location: 'Phnom Penh, KH', logo: 'https://img.logoipsum.com/296.svg', description: 'Specializing in connecting top-tier talent with innovative tech startups.', openJobs: 5, tags: ['Recruitment', 'HR'] },
+  { id: 3, name: 'DesignFlow', location: 'San Francisco, CA', logo: 'https://img.logoipsum.com/285.svg', description: 'A creative agency pushing the boundaries of digital product design.', openJobs: 3, tags: ['Design', 'Agency'] },
+  { id: 4, name: 'TechStack', location: 'Austin, TX', logo: 'https://img.logoipsum.com/225.svg', description: 'Building the next generation of scalable cloud infrastructure.', openJobs: 24, tags: ['SaaS', 'Cloud'] },
+  { id: 5, name: 'Velocity AI', location: 'Seattle, WA', logo: 'https://img.logoipsum.com/255.svg', description: 'Accelerating machine learning workflows for enterprise level data.', openJobs: 18, tags: ['AI', 'Data'] },
+  { id: 6, name: 'GreenLeaf', location: 'Portland, OR', logo: 'https://img.logoipsum.com/284.svg', description: 'Sustainable solutions for modern urban agriculture and living.', openJobs: 7, tags: ['Eco', 'AgriTech'] },
+  { id: 7, name: 'FinPort', location: 'London, UK', logo: 'https://img.logoipsum.com/218.svg', description: 'Simplifying global payments with secure, transparent fintech tools.', openJobs: 14, tags: ['Fintech', 'Finance'] },
+  { id: 8, name: 'HealthSync', location: 'Boston, MA', logo: 'https://img.logoipsum.com/258.svg', description: 'Bridging the gap between patients and providers through telemedicine.', openJobs: 9, tags: ['Health', 'App'] },
+  { id: 9, name: 'Nova Stream', location: 'Toronto, ON', logo: 'https://img.logoipsum.com/211.svg', description: 'High-performance streaming services for the modern gaming era.', openJobs: 21, tags: ['Gaming', 'Media'] },
+  { id: 10, name: 'Urban Code', location: 'Berlin, DE', logo: 'https://img.logoipsum.com/297.svg', description: 'Crafting elegant software for smart city management and transit.', openJobs: 4, tags: ['Software', 'City'] },
+  { id: 11, name: 'SecureNode', location: 'Singapore, SG', logo: 'https://img.logoipsum.com/221.svg', description: 'Advanced cybersecurity protecting decentralized networks worldwide.', openJobs: 11, tags: ['Security', 'Web3'] },
+  { id: 12, name: 'SkyBound', location: 'Denver, CO', logo: 'https://img.logoipsum.com/233.svg', description: 'Leading the way in aerospace engineering and private space flight.', openJobs: 32, tags: ['Aerospace', 'Tech'] },
+  { id: 13, name: 'Pure Water', location: 'Sydney, AU', logo: 'https://img.logoipsum.com/217.svg', description: 'Innovation in water filtration and global conservation efforts.', openJobs: 6, tags: ['Conservation', 'Water'] },
+  { id: 14, name: 'EduPulse', location: 'Mumbai, IN', logo: 'https://img.logoipsum.com/259.svg', description: 'Interactive learning platforms for primary and secondary education.', openJobs: 15, tags: ['EdTech', 'Education'] },
+  { id: 15, name: 'AutoVision', location: 'Tokyo, JP', logo: 'https://img.logoipsum.com/243.svg', description: 'Developing autonomous vehicle systems for safer public roads.', openJobs: 27, tags: ['Auto', 'AI'] },
+  { id: 16, name: 'Cortex Design', location: 'Montreal, QC', logo: 'https://img.logoipsum.com/288.svg', description: 'Industrial design firm focused on ergonomic workplace hardware.', openJobs: 8, tags: ['Industrial', 'Design'] },
 ]
 
 const filteredCompanies = computed(() => {

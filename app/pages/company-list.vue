@@ -1,6 +1,6 @@
 <template>
   <div class="min-h-screen bg-[#F8F9FB] p-6 md:p-12 font-sans flex justify-center items-center mt-[50px]">
-    <div class="max-w-7xl mx-auto">
+    <div class=" w-[90%]  h-auto mx-auto">
       
       <header class="mb-12 flex flex-col md:flex-row justify-between items-center gap-6">
         <div class="space-y-2">
@@ -14,7 +14,7 @@
             placeholder="Search by company name..." 
             class="w-full pl-12 pr-4 py-3 bg-white border border-slate-200 rounded-2xl focus:ring-2 focus:ring-blue-500 outline-none transition-all shadow-sm"
           />
-          <span class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400">🔍</span>
+          <span class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"><i class="fa-solid fa-magnifying-glass"></i></span>
         </div>
       </header>
 
@@ -33,7 +33,7 @@
             </span>
           </div>
           <div class="space-y-1">
-            <h2 class="text-xl font-bold text-slate-800 group-hover:text-indigo-600 transition-colors">{{ company.name }}</h2>
+            <h2 class="text-xl font-bold text-slate-800 group-hover:text-blue-500 transition-colors">{{ company.name }}</h2>
             <p class="text-sm text-slate-400 flex items-center gap-1">📍 {{ company.location }}</p>
           </div>
           <p class="mt-4 text-sm text-slate-500 line-clamp-2 leading-relaxed">{{ company.description }}</p>
@@ -108,6 +108,10 @@ const allCompanies = [
   { id: 2, name: 'PeopleCore', location: 'Phnom Penh, KH', logo: 'https://img.logoipsum.com/296.svg', description: 'Connecting talent.', openJobs: 5, tags: ['Recruitment'] },
   { id: 3, name: 'DesignFlow', location: 'San Francisco, CA', logo: 'https://img.logoipsum.com/285.svg', description: 'Creative agency.', openJobs: 3, tags: ['Design'] },
   { id: 4, name: 'TechStack', location: 'Austin, TX', logo: 'https://img.logoipsum.com/225.svg', description: 'Cloud infrastructure.', openJobs: 24, tags: ['SaaS'] },
+  { id: 4, name: 'TechStack', location: 'Austin, TX', logo: 'https://img.logoipsum.com/225.svg', description: 'Cloud infrastructure.', openJobs: 24, tags: ['SaaS'] },
+  { id: 1, name: 'Marriott Group', location: 'Los Angeles, CA', logo: 'https://upload.wikimedia.org/wikipedia/commons/4/44/Marriott_Logo.svg', description: 'Global hospitality leader.', openJobs: 12, tags: ['Hospitality'] },
+  { id: 2, name: 'PeopleCore', location: 'Phnom Penh, KH', logo: 'https://img.logoipsum.com/296.svg', description: 'Connecting talent.', openJobs: 5, tags: ['Recruitment'] },
+  { id: 3, name: 'DesignFlow', location: 'San Francisco, CA', logo: 'https://img.logoipsum.com/285.svg', description: 'Creative agency.', openJobs: 3, tags: ['Design'] },
 ]
 
 const filteredCompanies = computed(() => {

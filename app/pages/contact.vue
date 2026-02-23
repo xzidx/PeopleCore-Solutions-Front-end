@@ -103,7 +103,7 @@
                 </a>
 
                 <!-- Instagram -->
-                <a href="#"
+                <a href="https://www.instagram.com/chork_bora/"
                 class="group w-40 h-40 bg-gray-50 rounded-2xl flex flex-col items-center justify-center shadow-md hover:shadow-xl hover:-translate-y-2 transition-all duration-300">
 
                 <div class="w-14 h-14 flex items-center justify-center rounded-full bg-blue-100 group-hover:bg-blue-600 transition-all duration-300">

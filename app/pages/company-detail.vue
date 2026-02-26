@@ -1,12 +1,19 @@
 <template>
-  <div class="min-h-screen bg-[#F8F9FB] pb-24 font-sans text-slate-900  mt-[20px]">
+  <div class="min-h-screen bg-[#F8F9FB] pb-24 font-sans text-slate-900 mt-[20px]">
     <div class="h-64 bg-blue-500 relative overflow-hidden">
       <div class="absolute inset-0 bg-gradient-to-r from-blue-900/40 to-indigo-900/40"></div>
     </div>
 
     <div class="max-w-7xl mx-auto px-6 md:px-12 -mt-24 relative z-10">
       
-      <div v-if="company" class="grid grid-cols-1 lg:grid-cols-12 gap-10">
+      <!-- Loading State -->
+      <div v-if="loading" class="text-center py-40 bg-white rounded-[4rem] border border-slate-100 shadow-sm">
+        <div class="animate-spin text-blue-600 text-5xl mb-6"><i class="fa-solid fa-circle-notch"></i></div>
+        <p class="text-slate-400 font-black uppercase tracking-[0.3em] text-xs">Loading Company Data...</p>
+      </div>
+
+      <!-- Company Data -->
+      <div v-else-if="company" class="grid grid-cols-1 lg:grid-cols-12 gap-10">
         
         <div class="lg:col-span-8 space-y-8">
           
@@ -106,9 +113,11 @@
 
       </div>
 
+      <!-- No Company Found -->
       <div v-else class="text-center py-40 bg-white rounded-[4rem] border border-slate-100 shadow-sm">
-        <div class="animate-spin text-blue-600 text-5xl mb-6"><i class="fa-solid fa-circle-notch"></i></div>
-        <p class="text-slate-400 font-black uppercase tracking-[0.3em] text-xs">Waiting for Company Data...</p>
+        <div class="text-red-500 text-5xl mb-6"><i class="fa-solid fa-building"></i></div>
+        <p class="text-slate-400 font-black uppercase tracking-[0.3em] text-xs">Company Not Found</p>
+        <button @click="$router.back()" class="mt-4 text-blue-500">Go Back</button>
       </div>
     </div>
   </div>
@@ -116,8 +125,13 @@
 
 <script setup>
 import { ref, onMounted } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
+import axios from 'axios'
 
+const route = useRoute()
+const router = useRouter()
 const company = ref(null)
+const loading = ref(true)
 
 const cultureStats = [
   { label: 'Work-Life Balance', value: 94 },
@@ -133,13 +147,41 @@ const benefits = [
   { icon: 'fa-solid fa-graduation-cap', title: 'Learning Stipend', desc: '$2,500/year for books, courses, and conferences.' }
 ]
 
-onMounted(() => {
-  // Reliable check for data passed from the Router
-  if (history.state && history.state.company) {
-    company.value = history.state.company
-    console.log("Data loaded successfully:", company.value)
-  } else {
-    console.error("No company data found in history.state")
+onMounted(async () => {
+  console.log("Company detail mounted")
+  console.log("Route query:", route.query)
+  
+  try {
+    // Get documentId from query (SAME AS JOB PAGE)
+    const companyDocumentId = route.query.id
+    console.log("Looking for company documentId:", companyDocumentId)
+    
+    if (!companyDocumentId) {
+      console.error("No company ID found in query!")
+      loading.value = false
+      return
+    }
+    
+    console.log("Fetching from API...")
+    const response = await axios.get('http://localhost:1337/api/companies')
+    console.log("API response received:", response.data)
+    
+    const companies = response.data.data || response.data
+    console.log("Companies array:", companies)
+    
+    // Find by documentId
+    const foundCompany = companies.find(c => c.documentId === companyDocumentId)
+    console.log("Found company:", foundCompany)
+    
+    if (foundCompany) {
+      company.value = foundCompany
+    } else {
+      console.error("Company not found with documentId:", companyDocumentId)
+    }
+  } catch (error) {
+    console.error("Failed to fetch company:", error)
+  } finally {
+    loading.value = false
   }
 })
 </script>

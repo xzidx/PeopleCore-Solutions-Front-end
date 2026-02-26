@@ -41,7 +41,7 @@
       <div v-else-if="paginatedCompanies.length > 0" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
         <div 
           v-for="company in paginatedCompanies" 
-          :key="company.id"
+          :key="company.documentId"
           @click="goToDetail(company)"
           class="group bg-white rounded-[2.5rem] p-8 border border-slate-100 shadow-sm hover:shadow-xl hover:shadow-indigo-900/5 hover:-translate-y-1 transition-all duration-300 cursor-pointer"
         >
@@ -130,15 +130,13 @@
 
 <script setup>
 import { ref, onMounted, computed, watch } from 'vue'
-import { useRouter, useRoute } from 'vue-router'
+import { useRouter } from 'vue-router'
 import axios from 'axios'
 
 const router = useRouter()
-const route = useRoute()
 
 // State
 const allCompanies = ref([])
-const jobDetail = ref(null)
 const searchQuery = ref('')
 const currentPage = ref(1)
 const itemsPerPage = ref(8)
@@ -148,12 +146,6 @@ const error = ref(null)
 // Fetch companies on mount
 onMounted(async () => {
   await fetchCompanies()
-  
-  // If there's a job ID in query, fetch that specific job
-  const jobId = route.query.id
-  if (jobId) {
-    await fetchJobDetail(jobId)
-  }
 })
 
 // Fetch all companies
@@ -163,7 +155,6 @@ const fetchCompanies = async () => {
   
   try {
     const response = await axios.get('http://localhost:1337/api/companies')
-    // Adjust this based on your actual API response structure
     allCompanies.value = response.data.data || response.data || []
     console.log('Companies loaded:', allCompanies.value)
   } catch (err) {
@@ -174,24 +165,9 @@ const fetchCompanies = async () => {
   }
 }
 
-// Fetch specific job detail
-const fetchJobDetail = async (jobId) => {
-  try {
-    const response = await axios.get(`http://localhost:1337/api/companies/${jobId}`)
-    jobDetail.value = response.data.data || response.data
-    console.log('Job detail loaded:', jobDetail.value)
-  } catch (err) {
-    console.error('Error fetching job detail:', err)
-  }
-}
-
-// Navigate to company detail
+// Navigate to company detail - SIMPLE like job page
 const goToDetail = (company) => {
-  router.push({
-    name: 'company-detail',
-    params: { id: company.id },
-    state: { company } 
-  })
+  router.push(`/company-detail?id=${company.documentId}`)
 }
 
 // Computed properties

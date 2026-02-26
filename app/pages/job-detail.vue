@@ -1,5 +1,5 @@
 <template>
-  <div class="min-h-screen bg-slate-50 p-4 md:p-12 font-sans text-slate-900 flex justify-center items-center mt-[100px]">
+  <div v-if="jobDetail" class="min-h-screen bg-slate-50 p-4 md:p-12 font-sans text-slate-900 flex justify-center items-center mt-[100px]">
     <div class="max-w-8xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8">
       
       <aside class="lg:col-span-3 space-y-6">
@@ -33,7 +33,7 @@
                 <img src="https://upload.wikimedia.org/wikipedia/commons/4/44/Marriott_Logo.svg" alt="Marriott" class="w-full h-auto" />
               </div>
               <div>
-                <h1 class="text-2xl font-bold text-slate-800">Marriott Group</h1>
+                <h1 class="text-2xl font-bold text-slate-800">{{ jobDetail[0]?.title }}</h1>
                 <p class="text-slate-500">Los Angeles, CA</p>
                 <div class="flex gap-2 mt-3">
                   <span class="px-3 py-1 bg-indigo-50 text-indigo-600 text-xs font-bold rounded-lg">Logistics</span>
@@ -46,7 +46,7 @@
               <div class="flex gap-8 text-sm">
                 <div class="text-center">
                   <p class="text-slate-400 font-medium">Type</p>
-                  <p class="font-bold">Full time</p>
+                  <p class="font-bold">{{ jobDetail[0]?.schedule }} </p>
                 </div>
                 <div class="text-center border-l border-slate-100 pl-8">
                   <p class="text-slate-400 font-medium">Company Size</p>
@@ -63,9 +63,9 @@
         <section class="bg-white rounded-[2rem] p-10 shadow-sm border border-slate-100">
           <div class="flex justify-between items-start mb-8">
             <div>
-              <h2 class="text-3xl font-bold text-slate-800 mb-2">Sales Manager</h2>
-              <p class="text-slate-500 font-medium">Marriott Group <span class="mx-2">•</span> Los Angeles, CA</p>
-              <p class="text-sm mt-2 font-bold uppercase tracking-wider text-slate-400">Job Type <span class="text-slate-800">Full time</span></p>
+              <h2 class="text-3xl font-bold text-slate-800 mb-2"></h2>
+              <p class="text-slate-500 font-medium">{{ jobDetail[0]?.title }} <span class="mx-2">•</span> {{ jobDetail[0]?.location }}</p>
+              <p class="text-sm mt-2 font-bold uppercase tracking-wider text-slate-400">Salary <span class="text-slate-800 text-lg">{{ jobDetail[0]?.salary  }} $/Month</span></p>
             </div>
             <div class="text-right">
               <p class="text-xs text-slate-400 mb-4 font-medium uppercase tracking-widest">Posted: 03 hours(s) ago</p>
@@ -109,3 +109,27 @@
     </div>
   </div>
 </template> 
+
+<script setup>
+  import { ref, onMounted } from 'vue'
+  import axios from 'axios'
+
+  // Create a reactive reference for the jobs
+  const jobDetail = ref([])
+
+  const key = {
+    headers: {
+      Authorization: 'Bearer e10ef327e881d9bd1ed50870ef36e6228d94fb67c5db82824c1e6aea1d3462c9b1a82a539e637dae712a632fa0d035747d726bebc9ebbd73fa1d1539b44c4b02ca143978bd2a852e0241f9e799e82b6b9e614cd09277766e0aa670bfbdc1ab20b02b471655c5798976816eeb27aea59899f236807db38adc1ae0d85edeaa1cce'
+    }
+  }
+
+  onMounted(async () => {
+    try {
+      const response = await axios.get("http://localhost:1337/api/jobs", key)
+      // Strapi data is usually in response.data.data
+      jobDetail.value = response.data.data
+    } catch (error) {
+      console.error("Error fetching jobs:", error)
+    }
+  })
+</script>

@@ -144,6 +144,60 @@
 
 <script setup>
 import { ref, computed, watch } from 'vue'
+import axios from 'axios'
+import JobCard from '~/components/JobCard.vue'
+
+
+
+
+// --- Job Data (ADDED IDs) ---
+const jobs = ref([])
+
+
+
+const fetchJobs = async () => {
+  try {
+    const res = await axios.get('http://localhost:1337/api/jobs?populate=*')
+    const data = res.data.data || []
+    console.log(data);
+    
+
+    jobs.value = data.map(item => {
+      // Strapi puts fields inside 'attributes'
+      const attrs = item.attributes || item
+      
+      // FIX FOR COMPANY DATA:
+      // If company is a direct object: attrs.company.name
+      // If it is a relation: attrs.company.data.attributes.name
+      const companyName = attrs.company?.title || attrs.company?.data?.attributes?.title || 'No Company'
+
+      return {
+        id: item.id,
+        title: attrs.title || 'No Title',
+        company: companyName || 'No Company',
+        companyIcon: 'fa-solid fa-building',
+        location: attrs.location || 'Unknown',
+        price: attrs.salary || 'N/A',
+        date: attrs.publishedAt ? new Date(attrs.publishedAt).toLocaleDateString() : '',
+        tags: attrs.tags?.length ? attrs.tags : [attrs.schedule || 'Full time'],
+        bgColor: 'bg-[#E7DBFF]'
+      }
+    })
+  } catch (err) {
+    console.error('Error fetching jobs:', err.response?.data || err)
+  }
+}
+onMounted(fetchJobs)
+
+
+
+
+
+
+
+
+
+
 
 // --- UI State ---
 const openDropdown = ref(null)
@@ -193,27 +247,6 @@ const dropdownConfigs = [
   }
 ]
 
-// --- Job Data (ADDED IDs) ---
-const jobs = ref([
-  { id: 1, date: '12 Mar, 2026', company: 'Spotify', title: 'Product Designer', tags: ['Full time', 'Senior level'], price: 320, location: 'Stockholm, SE', bgColor: 'bg-[#E7DBFF]' },
-  { id: 2, date: '05 Apr, 2026', company: 'Slack', title: 'Frontend Engineer', tags: ['Distant', 'Middle level'], price: 280, location: 'Remote', bgColor: 'bg-[#D1F7EA]' },
-  { id: 3, date: '22 Jan, 2026', company: 'Airbnb', title: 'UX Researcher', tags: ['Project work', 'Senior level'], price: 400, location: 'San Francisco, CA', bgColor: 'bg-[#FFE2C5]' },
-  { id: 4, date: '18 Feb, 2026', company: 'Tesla', title: 'Fullstack Developer', tags: ['Full time', 'Lead level'], price: 450, location: 'Austin, TX', bgColor: 'bg-[#D1F7EA]' },
-  { id: 5, date: '01 May, 2026', company: 'Netflix', title: 'Content Strategist', tags: ['Part time', 'Junior level'], price: 190, location: 'Los Angeles, CA', bgColor: 'bg-[#E7DBFF]' },
-  { id: 6, date: '14 Mar, 2026', company: 'Adobe', title: 'Creative Director', tags: ['Full Day', 'Senior level'], price: 550, location: 'San Jose, CA', bgColor: 'bg-[#FFE2C5]' },
-  { id: 7, date: '30 Apr, 2026', company: 'Figma', title: 'Design Systems Lead', tags: ['Distant', 'Lead level'], price: 420, location: 'Remote', bgColor: 'bg-[#D1F7EA]' },
-  { id: 8, date: '10 Feb, 2026', company: 'Microsoft', title: 'Azure Specialist', tags: ['Shift work', 'Middle level'], price: 310, location: 'Seattle, WA', bgColor: 'bg-[#FFE2C5]' },
-  { id: 9, date: '25 Mar, 2026', company: 'Shopify', title: 'E-commerce Expert', tags: ['Contract', 'Senior level'], price: 290, location: 'Ottawa, ON', bgColor: 'bg-[#E7DBFF]' },
-  { id: 10, date: '08 May, 2026', company: 'Apple', title: 'iOS Developer', tags: ['Full time', 'Senior level'], price: 480, location: 'Cupertino, CA', bgColor: 'bg-[#D1F7EA]' },
-  { id: 11, date: '19 Jan, 2026', company: 'Notion', title: 'Customer Success', tags: ['Flexible', 'Junior level'], price: 120, location: 'New York, NY', bgColor: 'bg-[#FFE2C5]' },
-  { id: 12, date: '02 Mar, 2026', company: 'Zoom', title: 'Security Engineer', tags: ['Distant', 'Middle level'], price: 340, location: 'Remote', bgColor: 'bg-[#E7DBFF]' },
-  { id: 13, date: '15 Feb, 2026', company: 'Discord', title: 'Community Manager', tags: ['Part time', 'Middle level'], price: 210, location: 'Remote', bgColor: 'bg-[#D1F7EA]' },
-  { id: 14, date: '28 Feb, 2026', company: 'Reddit', title: 'Backend Engineer', tags: ['Full time', 'Senior level'], price: 390, location: 'San Francisco, CA', bgColor: 'bg-[#FFE2C5]' },
-  { id: 15, date: '10 Apr, 2026', company: 'Stripe', title: 'Payment Architect', tags: ['Full Day', 'Lead level'], price: 510, location: 'Dublin, IE', bgColor: 'bg-[#E7DBFF]' },
-  { id: 16, date: '05 May, 2026', company: 'HubSpot', title: 'Marketing Lead', tags: ['Flexible', 'Senior level'], price: 275, location: 'Boston, MA', bgColor: 'bg-[#D1F7EA]' },
-  { id: 17, date: '12 Mar, 2026', company: 'Spotify', title: 'Product Designer', tags: ['Full time', 'Senior level'], price: 320, location: 'Stockholm, SE', bgColor: 'bg-[#E7DBFF]' },
-  { id: 18, date: '05 Apr, 2026', company: 'Slack', title: 'Frontend Engineer', tags: ['Distant', 'Middle level'], price: 280, location: 'Remote', bgColor: 'bg-[#D1F7EA]' },
-])
 
 // --- Search & Pagination Logic ---
 const filteredJobs = computed(() => {

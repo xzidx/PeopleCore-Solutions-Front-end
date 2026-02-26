@@ -1,5 +1,5 @@
 <template>
-  <header class="  w-full text-white flex  justify-around items-center ">
+  <header class="  w-full text-white flex  justify-around items-center fixed top-0 left-0 w-full bg-white z-50 ">
       <div class="  w-[270px] h-[80px] ">
           <img src="/../public/images/logo.png" alt="">
       </div>
@@ -7,7 +7,7 @@
           <ul class="flex justify-center items-center gap-10">
             <li class="flex justify-center items-center text-xl text-black font-semibold">
               <NuxtLink 
-                to="/jobs" 
+                to="/" 
                 class="relative group transition duration-300">
                 <span class="group-hover:text-blue-500">Home</span>
                 <span class="absolute left-0 -bottom-1 h-[2px] w-0 bg-blue-500 transition-all duration-300 group-hover:w-full"></span>
@@ -15,7 +15,7 @@
             </li>
             <li class="flex justify-center items-center text-xl text-black font-semibold">
               <NuxtLink 
-                to="/jobs" 
+                to="/job-list" 
                 class="relative group transition duration-300">
                 <span class="group-hover:text-blue-500">Jobs</span>
                 <span class="absolute left-0 -bottom-1 h-[2px] w-0 bg-blue-500 transition-all duration-300 group-hover:w-full"></span>
@@ -24,7 +24,7 @@
             </li>
             <li class="flex justify-center items-center text-xl text-black font-semibold">
              <NuxtLink 
-                to="/jobs" 
+                to="/company-list" 
                 class="relative group transition duration-300">
                 <span class="group-hover:text-blue-500">Companies</span>
                 <span class="absolute left-0 -bottom-1 h-[2px] w-0 bg-blue-500 transition-all duration-300 group-hover:w-full"></span>
@@ -32,7 +32,7 @@
             </li>
             <li class="flex justify-center items-center text-xl text-black font-semibold">
              <NuxtLink 
-                to="/jobs" 
+                to="/about" 
                 class="relative group transition duration-300">
                 <span class="group-hover:text-blue-500">About</span>
                 <span class="absolute left-0 -bottom-1 h-[2px] w-0 bg-blue-500 transition-all duration-300 group-hover:w-full"></span>

@@ -24,12 +24,12 @@
               </div>
               <div class="flex-1 text-center md:text-left space-y-4">
                 <div class="flex flex-wrap justify-center md:justify-start items-center gap-3">
-                  <h1 class="text-5xl md:text-6xl font-black tracking-tighter text-slate-900">{{ company.name }}</h1>
+                  <h1 class="text-5xl md:text-6xl font-black tracking-tighter text-slate-900">{{ company.title }}</h1>
                   <span class="bg-blue-500 text-white text-[10px] font-black px-3 py-1 rounded-md uppercase tracking-widest">Hiring</span>
                 </div>
                 <div class="flex flex-wrap justify-center md:justify-start gap-6 text-slate-400 font-medium">
                   <span class="flex items-center gap-2"><i class="fa-solid fa-location-dot text-blue-500"></i> {{ company.location }}</span>
-                  <span class="flex items-center gap-2"><i class="fa-solid fa-users text-blue-500"></i> 500-1000 Employees</span>
+                  <span class="flex items-center gap-2"><i class="fa-solid fa-users text-blue-500"></i> {{ company.Employees }}</span>
                 </div>
               </div>
             </div>
@@ -41,7 +41,7 @@
               Our Story
             </h3>
             <p class="text-slate-500 leading-relaxed text-lg mb-10">
-              {{ company.description }} We are building a future where technology and humanity work in harmony. At {{ company.name }}, we value craft, curiosity, and the drive to solve hard problems.
+              {{ company.description }}
             </p>
             <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
               <div v-for="tag in company.tags" :key="tag" class="bg-slate-50 p-5 rounded-xl text-center border border-slate-100">
@@ -92,8 +92,8 @@
                 <span class="font-black text-3xl text-white">{{ company.openJobs }}</span>
               </div>
               <div class="flex justify-between items-center border-b border-white/10 pb-5">
-                <span class="text-white">Avg. Salary</span>
-                <span class="font-bold text-lg text-white">$85k - $150k</span>
+                <span class="text-white">Avg.Salary</span>
+                <span class="font-bold text-lg text-white">${{ company.Salary }}</span>
               </div>
             </div>
             <button class="w-full bg-blue-600 text-white py-5 rounded-2xl font-black uppercase tracking-widest text-xs hover:bg-white hover:text-slate-900 transition-all">
@@ -124,7 +124,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, computed } from 'vue' // 1. Added computed here
 import { useRoute, useRouter } from 'vue-router'
 import axios from 'axios'
 
@@ -133,50 +133,61 @@ const router = useRouter()
 const company = ref(null)
 const loading = ref(true)
 
-const cultureStats = [
-  { label: 'Work-Life Balance', value: 94 },
-  { label: 'Growth & Learning', value: 82 },
-  { label: 'Diversity & Inclusion', value: 96 },
-  { label: 'Remote Flexibility', value: 100 }
-]
+const cultureStats = computed(() => [
+  { 
+    label: 'Work-Life Balance', 
+    value: company.value?.workLifeScore || 0 
+  },
+  { 
+    label: 'Growth & Learning', 
+    value: company.value?.growthScore || 0 
+  },
+  { 
+    label: 'Diversity & Inclusion', 
+    value: company.value?.diversityScore || 0 
+  },
+  { 
+    label: 'Remote Flexibility', 
+    value: company.value?.remoteScore || 0 
+  }
+])
 
-const benefits = [
-  { icon: 'fa-solid fa-laptop-house', title: 'Remote Work', desc: 'Work from anywhere or our modern hubs.' },
-  { icon: 'fa-solid fa-umbrella-beach', title: 'Unlimited PTO', desc: 'Take time off when you need it, no questions asked.' },
-  { icon: 'fa-solid fa-briefcase-medical', title: 'Health First', desc: 'Premium dental, vision, and health for you.' },
-  { icon: 'fa-solid fa-graduation-cap', title: 'Learning Stipend', desc: '$2,500/year for books, courses, and conferences.' }
-]
-
+const benefits = computed(() => [
+  { 
+    icon: 'fa-solid fa-laptop-house', 
+    title: 'Remote Work', 
+    desc: company.value?.remoteDesc || 'Nothing' 
+  },
+  { 
+    icon: 'fa-solid fa-umbrella-beach', 
+    title: 'Unlimited PTO', 
+    desc: company.value?.ptoDesc || 'Nothing' 
+  },
+  { 
+    icon: 'fa-solid fa-briefcase-medical', 
+    title: 'Health First', 
+    desc: company.value?.healthDesc || 'Nothing' 
+  },
+  { 
+    icon: 'fa-solid fa-graduation-cap', 
+    title: 'Learning Stipend', 
+    desc: company.value?.learningDesc || 'Nothing' 
+  }
+])
 onMounted(async () => {
-  console.log("Company detail mounted")
-  console.log("Route query:", route.query)
-  
   try {
-    // Get documentId from query (SAME AS JOB PAGE)
     const companyDocumentId = route.query.id
-    console.log("Looking for company documentId:", companyDocumentId)
-    
     if (!companyDocumentId) {
-      console.error("No company ID found in query!")
       loading.value = false
       return
     }
     
-    console.log("Fetching from API...")
     const response = await axios.get('http://localhost:1337/api/companies')
-    console.log("API response received:", response.data)
-    
     const companies = response.data.data || response.data
-    console.log("Companies array:", companies)
-    
-    // Find by documentId
     const foundCompany = companies.find(c => c.documentId === companyDocumentId)
-    console.log("Found company:", foundCompany)
     
     if (foundCompany) {
       company.value = foundCompany
-    } else {
-      console.error("Company not found with documentId:", companyDocumentId)
     }
   } catch (error) {
     console.error("Failed to fetch company:", error)

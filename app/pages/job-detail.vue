@@ -34,7 +34,7 @@
               </div>
               <div>
                 <h1 class="text-2xl font-bold text-slate-800">{{ jobDetail.title }}</h1>
-                <p class="text-slate-500">Los Angeles, CA</p>
+                <p class="text-slate-500"> {{ jobDetail.location }}</p>
                 <div class="flex gap-2 mt-3">
                   <span class="px-3 py-1 bg-indigo-50 text-indigo-600 text-xs font-bold rounded-lg">Logistics</span>
                   <span class="px-3 py-1 bg-purple-50 text-purple-600 text-xs font-bold rounded-lg">Hospitality</span>

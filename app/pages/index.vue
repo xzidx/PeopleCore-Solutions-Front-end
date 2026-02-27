@@ -80,7 +80,7 @@ const jobs = ref([
                 
           </div>
   </div>
-  <div class="h-[600px] flex items-center justify-center p-6 gap-5">
+  <div class="h-[700px] flex items-center justify-center p-6 gap-1">
     
     <CardJob 
       company="Amazon"
@@ -90,7 +90,7 @@ const jobs = ref([
       :tags="['Part-time', 'Senior']"
       salary="120"
       location="San Francisco, CA"
-       info="We are expanding our design department and looking for talented individuals to help us build the next generation of products"
+       info="We are expanding our design department and looking for talented individual"
     />
 
     <CardJob 
@@ -101,7 +101,7 @@ const jobs = ref([
       :tags="['Full-time', 'Remote']"
       salary="165"
       location="Mountain View, CA"
-      info="We are expanding our design department and looking for talented individuals to help us build the next generation of products"
+      info="We are expanding our design department and looking for talented individuals"
     />
 
     <CardJob 
@@ -112,7 +112,7 @@ const jobs = ref([
       :tags="['Contract', 'Mid-level']"
       salary="95"
       location="New York, NY"
-       info="We are expanding our design department and looking for talented individuals to help us build the next generation of products"
+       info="We are expanding our design department and looking for talented individuals"
     />
 
     <CardJob 
@@ -123,7 +123,7 @@ const jobs = ref([
       :tags="['Contract', 'Mid-level']"
       salary="95"
       location="New York, NY"
-       info="We are expanding our design department and looking for talented individuals to help us build the next generation of products"
+       info="We are expanding our design department and looking for talented individuals"
     />
   </div>
   <div class="bg-white py-16 px-6 md:py-24">
